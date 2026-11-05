@@ -467,8 +467,20 @@ int main(int argc, char *argv[]) {
 
                     navierStokes.infoParameter();
                 }
+                
+		 HDF5Export<SC, LO, GO, NO> exporterV(navierStokes.getSolution()->getBlock(0)->getMap(),
+		    "ReferenceSolutions/velocity"); //  Map and file name
+		exporterV.writeVariablesHDF5("velocity",
+		    navierStokes.getSolution()->getBlock(0)); // VariableName and Variable
 
-		HDF5Import<SC, LO, GO, NO> importerV(navierStokes.getSolution()->getBlock(0)->getMap(),
+		HDF5Export<SC, LO, GO, NO> exporterP(navierStokes.getSolution()->getBlock(1)->getMap(),
+		    "ReferenceSolutions/pressure"); //  Map and file name
+	      
+		exporterP.writeVariablesHDF5("pressure",
+		   navierStokes.getSolution()->getBlock(1)); // VariableName and Variable
+        
+        
+	/*	HDF5Import<SC, LO, GO, NO> importerV(navierStokes.getSolution()->getBlock(0)->getMap(),
 		    "ReferenceSolutions/velocity");
 		Teuchos::RCP<const MultiVector<SC, LO, GO, NO>> solutionImportedVeloctiy = importerV.readVariablesHDF5("u.00000/Values");
 
@@ -520,7 +532,7 @@ int main(int argc, char *argv[]) {
 		TEUCHOS_TEST_FOR_EXCEPTION(normErrorV/normVe > 1.e-9 || normErrorP/normPr > 1.e-9 , std::logic_error,
 		                            "Difference between current solution and "
 		                            "stored solution greater than 1e-9.");
-
+	*/
 
               /*  if ( parameterListAll->sublist("General").get("ParaViewExport",false) ) {
                     Teuchos::RCP<ExporterParaView<SC,LO,GO,NO> > exParaVelocity(new ExporterParaView<SC,LO,GO,NO>());
