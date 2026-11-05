@@ -170,14 +170,14 @@ int main(int argc, char *argv[]) {
 
     string xmlProblemFile = "parametersProblem.xml";
     myCLP.setOption("problemfile",&xmlProblemFile,".xml file with Inputparameters.");
-    string xmlPrecFile = "parametersPrec.xml";
-    myCLP.setOption("precfile",&xmlPrecFile,".xml file with Inputparameters.");
+    //string xmlPrecFile = "parametersPrec.xml";
+    //myCLP.setOption("precfile",&xmlPrecFile,".xml file with Inputparameters.");
     string xmlSolverFile = "parametersSolver.xml";
     myCLP.setOption("solverfile",&xmlSolverFile,".xml file with Inputparameters.");
-    string xmlTekoPrecFile = "parametersTeko.xml";
-    myCLP.setOption("tekoprecfile",&xmlTekoPrecFile,".xml file with Inputparameters.");
-    string xmlBlockPrecFile = "parametersPrecBlock.xml";
-    myCLP.setOption("blockprecfile",&xmlBlockPrecFile,".xml file with Inputparameters.");
+    //string xmlTekoPrecFile = "parametersTeko.xml";
+    //myCLP.setOption("tekoprecfile",&xmlTekoPrecFile,".xml file with Inputparameters.");
+    //string xmlBlockPrecFile = "parametersPrecBlock.xml";
+    //myCLP.setOption("blockprecfile",&xmlBlockPrecFile,".xml file with Inputparameters.");
    
     double length = 4.;
     myCLP.setOption("length",&length,"length of domain.");
