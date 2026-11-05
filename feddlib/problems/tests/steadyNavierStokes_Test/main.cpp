@@ -477,16 +477,16 @@ int main(int argc, char *argv[]) {
 		Teuchos::RCP<const MultiVector<SC, LO, GO, NO>> solutionImportedPressure = importerP.readVariablesHDF5("pressure");
 
 		// We compare the imported solution to the current one
-		Teuchos::RCP<const MultiVector<SC, LO, GO, NO>> solutionStokesVelocity = stokes.getSolution()->getBlock(0);
-		Teuchos::RCP<const MultiVector<SC, LO, GO, NO>> solutionStokesPressure = stokes.getSolution()->getBlock(1);
+		Teuchos::RCP<const MultiVector<SC, LO, GO, NO>> solutionVelocity = navierStokes.getSolution()->getBlock(0);
+		Teuchos::RCP<const MultiVector<SC, LO, GO, NO>> solutionPressure = navierStokes.getSolution()->getBlock(1);
 
 		// Calculating the error per node
 		Teuchos::RCP<MultiVector<SC, LO, GO, NO>> errorValuesVelocity = Teuchos::rcp(new MultiVector<SC, LO, GO, NO>(navierStokes.getSolution()->getBlock(0)->getMap()));
 		Teuchos::RCP<MultiVector<SC, LO, GO, NO>> errorValuesPressure = Teuchos::rcp(new MultiVector<SC, LO, GO, NO>(navierStokes.getSolution()->getBlock(1)->getMap()));
 
 		// this = alpha*A + beta*B + gamma*this
-		errorValuesVelocity->update(1., solutionStokesVelocity, -1., solutionImportedVeloctiy, 0.);
-		errorValuesPressure->update(1., solutionStokesPressure, -1., solutionImportedPressure, 0.);
+		errorValuesVelocity->update(1., solutionVelocity, -1., solutionImportedVeloctiy, 0.);
+		errorValuesPressure->update(1., solutionPressure, -1., solutionImportedPressure, 0.);
 
 		// Computing norm
 		Teuchos::Array<SC> normV(1);
