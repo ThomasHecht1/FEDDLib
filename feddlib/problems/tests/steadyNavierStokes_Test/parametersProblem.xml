@@ -1,0 +1,50 @@
+<ParameterList name="Problem">
+    <ParameterList name="Parameter">
+        <Parameter name="Dimension" type="int" value="2"/>
+        <Parameter name="Discretization Velocity" type="string" value="P2"/><!--P1, Q1, Q2 for velocity discretization -->
+        <Parameter name="Discretization Pressure" type="string" value="P1"/> <!--P1, Q1, P1-disc for pressure discretization -->
+        <Parameter name="Mesh Type" type="string" value="unstructured"/> <!--structured, unstructured -->
+        <Parameter name="BC Type" type="string" value="para_benchmark"/><!-- model: channel, vessel, para_benchmark, bfs, (gerader Kanal = channel, gekruemmter Kanal = vessel)-->
+        <Parameter name="Mesh Delimiter" type="string" value=" "/>
+        <!-- H/h definition -->
+        <Parameter name="H/h" type="int" value="3"/> 
+        <!-- Kinematic Viscosity -->
+        <Parameter name="Viscosity" type="double" value="1.0e-3"/>
+        <!-- Density-->
+        <Parameter name="Density" type="double" value="1.0"/>
+        <!-- Maximum velocity of computed parabolic inflow profile-->
+        <Parameter name="MaxVelocity" type="double" value="0.3"/>
+        <!-- Relative Newton Tolerance-->
+        <Parameter name="relNonLinTol" type="double" value="1.0e-12"/>
+        <Parameter name="absNonLinTol" type="double" value="1.0e-12"/>
+     	<!-- BUILDING PRECONDITIONER ONLY THE FIRST X (newtonLimit) NEWTON STEP(S) -->
+        <Parameter name="newtonLimit" type="int" value="3"/>
+        <Parameter name="Rebuild Preconditioner every Newton Iteration" type="bool" value="false"/>
+        <!--  -->
+        <!-- Maximum Nonlinear Iterations to be executed-->
+        <Parameter name="MaxNonLinIts" type="int" value="30"/>
+        <!-- Testing Residuals, Or means either abolute or relative tolerance is achieved -->
+        <Parameter name="Combo" type="string" value="OR"/>
+        <Parameter name="Use WRMS" type="bool" value="false"/>
+
+        <!-- use pressure projection to correct pressure in P2-P1/Q2-Q1 case-->
+        <Parameter name="Use Pressure Projection" type="bool" value="false"/>   
+
+    </ParameterList>
+    <ParameterList name="Mesh Partitioner">
+        <Parameter name="Contiguous" type="bool" value="true"/>
+        <Parameter name="Mesh 1 Name" type="string" value="benchmark_2DAdpt_h01.mesh"/>
+    </ParameterList>
+    <ParameterList name="General">
+		<!-- Linearization method-->
+        <Parameter name="Linearization" type="string" value="Newton"/> <!-- FixedPoint, Newton, NOX-->
+        <!-- Exporting solution and other things-->
+        <Parameter name="ParaViewExport" type="bool" value="true"/>
+        <Parameter name="ParaViewCoarse" type="bool" value="false"/>
+        <Parameter name="ParaViewCoarseSum" type="bool" value="false"/>
+        <Parameter name="ParaView export subdomain" type="bool" value="false"/>
+        <!-- Preconditioning method-->
+        <Parameter name="Preconditioner Method" type="string" value="Monolithic"/><!-- Monolithic, Teko, PCD, LSC, Diagonal, Triangular -->
+
+    </ParameterList>
+</ParameterList>
