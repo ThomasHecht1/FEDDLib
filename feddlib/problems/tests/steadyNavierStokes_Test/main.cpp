@@ -468,11 +468,11 @@ int main(int argc, char *argv[]) {
                     navierStokes.infoParameter();
                 }
 
-		HDF5Import<SC, LO, GO, NO> importerV(stokes.getSolution()->getBlock(0)->getMap(),
+		HDF5Import<SC, LO, GO, NO> importerV(navierStokes.getSolution()->getBlock(0)->getMap(),
 		    "ReferenceSolutions/velocity");
 		Teuchos::RCP<const MultiVector<SC, LO, GO, NO>> solutionImportedVeloctiy = importerV.readVariablesHDF5("velocity");
 
-		HDF5Import<SC, LO, GO, NO> importerP(stokes.getSolution()->getBlock(1)->getMap(),
+		HDF5Import<SC, LO, GO, NO> importerP(navierStokes.getSolution()->getBlock(1)->getMap(),
 		    "ReferenceSolutions/pressure");
 		Teuchos::RCP<const MultiVector<SC, LO, GO, NO>> solutionImportedPressure = importerP.readVariablesHDF5("pressure");
 
@@ -481,8 +481,8 @@ int main(int argc, char *argv[]) {
 		Teuchos::RCP<const MultiVector<SC, LO, GO, NO>> solutionStokesPressure = stokes.getSolution()->getBlock(1);
 
 		// Calculating the error per node
-		Teuchos::RCP<MultiVector<SC, LO, GO, NO>> errorValuesVelocity = Teuchos::rcp(new MultiVector<SC, LO, GO, NO>(stokes.getSolution()->getBlock(0)->getMap()));
-		Teuchos::RCP<MultiVector<SC, LO, GO, NO>> errorValuesPressure = Teuchos::rcp(new MultiVector<SC, LO, GO, NO>(stokes.getSolution()->getBlock(1)->getMap()));
+		Teuchos::RCP<MultiVector<SC, LO, GO, NO>> errorValuesVelocity = Teuchos::rcp(new MultiVector<SC, LO, GO, NO>(navierStokes.getSolution()->getBlock(0)->getMap()));
+		Teuchos::RCP<MultiVector<SC, LO, GO, NO>> errorValuesPressure = Teuchos::rcp(new MultiVector<SC, LO, GO, NO>(navierStokes.getSolution()->getBlock(1)->getMap()));
 
 		// this = alpha*A + beta*B + gamma*this
 		errorValuesVelocity->update(1., solutionStokesVelocity, -1., solutionImportedVeloctiy, 0.);
