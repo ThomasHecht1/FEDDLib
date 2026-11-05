@@ -195,14 +195,14 @@ int main(int argc, char *argv[]) {
     {
         ParameterListPtr_Type parameterListProblem = Teuchos::getParametersFromXmlFile(xmlProblemFile);
 
-        ParameterListPtr_Type parameterListPrec = Teuchos::getParametersFromXmlFile(xmlPrecFile);
+      //  ParameterListPtr_Type parameterListPrec = Teuchos::getParametersFromXmlFile(xmlPrecFile);
 
         ParameterListPtr_Type parameterListSolver = Teuchos::getParametersFromXmlFile(xmlSolverFile);
 
-        ParameterListPtr_Type parameterListPrecTeko = Teuchos::getParametersFromXmlFile(xmlTekoPrecFile);
+       /* ParameterListPtr_Type parameterListPrecTeko = Teuchos::getParametersFromXmlFile(xmlTekoPrecFile);
 
         ParameterListPtr_Type parameterListPrecBlock = Teuchos::getParametersFromXmlFile(xmlBlockPrecFile);
-
+	*/
         int 		dim				= parameterListProblem->sublist("Parameter").get("Dimension",3);
 
         std::string discVelocity = parameterListProblem->sublist("Parameter").get("Discretization Velocity","P2");
@@ -220,13 +220,13 @@ int main(int argc, char *argv[]) {
 
 
         ParameterListPtr_Type parameterListAll(new Teuchos::ParameterList(*parameterListProblem)) ;
-        if (!precMethod.compare("Monolithic"))
+       /* if (!precMethod.compare("Monolithic"))
             parameterListAll->setParameters(*parameterListPrec);
         else if(precMethod == "Teko")
             parameterListAll->setParameters(*parameterListPrecTeko);
         else if(precMethod == "Diagonal" || precMethod == "Triangular" || precMethod == "PCD" || precMethod == "LSC")
             parameterListAll->setParameters(*parameterListPrecBlock);
-
+	*/
         parameterListAll->setParameters(*parameterListSolver);    
         
         std::string bcType = parameterListProblem->sublist("Parameter").get("BC Type","parabolic");
@@ -256,8 +256,8 @@ int main(int argc, char *argv[]) {
                     if (verbose) {
                         cout << "-- Building Mesh ..." << flush;
                     }
-
-                    if (!meshType.compare("structured")) {
+			
+                  /*  if (!meshType.compare("structured")) {
                         TEUCHOS_TEST_FOR_EXCEPTION( size%minNumberSubdomains != 0 , std::logic_error, "Wrong number of processors for structured mesh.");
                         if (dim == 2) {
                             n = (int) (std::pow( size/minNumberSubdomains ,1/2.) + 100*Teuchos::ScalarTraits<double>::eps()); // 1/H
@@ -315,6 +315,7 @@ int main(int argc, char *argv[]) {
                         domainPressure->buildMesh( 5,"Square", dim, discPressure, n, m, numProcsCoarseSolve);
                         domainVelocity->buildMesh( 5,"Square", dim, discVelocity, n, m, numProcsCoarseSolve);
                     }
+                    */
                     else if (!meshType.compare("unstructured")) {
                     
                         domainPressure.reset( new Domain<SC,LO,GO,NO>( comm, dim ) );
