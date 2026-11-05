@@ -316,7 +316,7 @@ int main(int argc, char *argv[]) {
                         domainVelocity->buildMesh( 5,"Square", dim, discVelocity, n, m, numProcsCoarseSolve);
                     }
                     */
-                    else if (!meshType.compare("unstructured")) {
+                    if (!meshType.compare("unstructured")) {
                     
                         domainPressure.reset( new Domain<SC,LO,GO,NO>( comm, dim ) );
                         domainVelocity.reset( new Domain<SC,LO,GO,NO>( comm, dim ) );
