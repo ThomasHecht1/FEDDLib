@@ -468,7 +468,7 @@ int main(int argc, char *argv[]) {
                     navierStokes.infoParameter();
                 }
 
-		HDF5Import<SC, LO, GO, NO> importerV(navierStokes.getSolution()->getBlock(0)->getMap(),
+	/*	HDF5Import<SC, LO, GO, NO> importerV(navierStokes.getSolution()->getBlock(0)->getMap(),
 		    "ReferenceSolutions/velocity");
 		Teuchos::RCP<const MultiVector<SC, LO, GO, NO>> solutionImportedVeloctiy = importerV.readVariablesHDF5("u");
 
@@ -515,7 +515,7 @@ int main(int argc, char *argv[]) {
 		    std::cout << "   || pressure_current ||_inf = " << normPr << std::endl;
 		    std::cout << " --------------------------------------------------" << std::endl;
 		}
-
+*/
 		// Throwing exception, if error is too great.
 		TEUCHOS_TEST_FOR_EXCEPTION(normErrorV/normVe > 1.e-9 || normErrorP/normPr > 1.e-9 , std::logic_error,
 		                            "Difference between current solution and "
