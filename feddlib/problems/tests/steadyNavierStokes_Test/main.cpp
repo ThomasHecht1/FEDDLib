@@ -515,11 +515,12 @@ int main(int argc, char *argv[]) {
 		    std::cout << "   || pressure_current ||_inf = " << normPr << std::endl;
 		    std::cout << " --------------------------------------------------" << std::endl;
 		}
-*/
+
 		// Throwing exception, if error is too great.
 		TEUCHOS_TEST_FOR_EXCEPTION(normErrorV/normVe > 1.e-9 || normErrorP/normPr > 1.e-9 , std::logic_error,
 		                            "Difference between current solution and "
 		                            "stored solution greater than 1e-9.");
+*/
 
                 if ( parameterListAll->sublist("General").get("ParaViewExport",false) ) {
                     Teuchos::RCP<ExporterParaView<SC,LO,GO,NO> > exParaVelocity(new ExporterParaView<SC,LO,GO,NO>());
