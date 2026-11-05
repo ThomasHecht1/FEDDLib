@@ -468,13 +468,13 @@ int main(int argc, char *argv[]) {
                     navierStokes.infoParameter();
                 }
 
-	/*	HDF5Import<SC, LO, GO, NO> importerV(navierStokes.getSolution()->getBlock(0)->getMap(),
+		HDF5Import<SC, LO, GO, NO> importerV(navierStokes.getSolution()->getBlock(0)->getMap(),
 		    "ReferenceSolutions/velocity");
-		Teuchos::RCP<const MultiVector<SC, LO, GO, NO>> solutionImportedVeloctiy = importerV.readVariablesHDF5("u");
+		Teuchos::RCP<const MultiVector<SC, LO, GO, NO>> solutionImportedVeloctiy = importerV.readVariablesHDF5("u.00000");
 
 		HDF5Import<SC, LO, GO, NO> importerP(navierStokes.getSolution()->getBlock(1)->getMap(),
 		    "ReferenceSolutions/pressure");
-		Teuchos::RCP<const MultiVector<SC, LO, GO, NO>> solutionImportedPressure = importerP.readVariablesHDF5("p");
+		Teuchos::RCP<const MultiVector<SC, LO, GO, NO>> solutionImportedPressure = importerP.readVariablesHDF5("p.00000");
 
 		// We compare the imported solution to the current one
 		Teuchos::RCP<const MultiVector<SC, LO, GO, NO>> solutionVelocity = navierStokes.getSolution()->getBlock(0);
@@ -520,9 +520,9 @@ int main(int argc, char *argv[]) {
 		TEUCHOS_TEST_FOR_EXCEPTION(normErrorV/normVe > 1.e-9 || normErrorP/normPr > 1.e-9 , std::logic_error,
 		                            "Difference between current solution and "
 		                            "stored solution greater than 1e-9.");
-*/
 
-                if ( parameterListAll->sublist("General").get("ParaViewExport",false) ) {
+
+              /*  if ( parameterListAll->sublist("General").get("ParaViewExport",false) ) {
                     Teuchos::RCP<ExporterParaView<SC,LO,GO,NO> > exParaVelocity(new ExporterParaView<SC,LO,GO,NO>());
                     Teuchos::RCP<ExporterParaView<SC,LO,GO,NO> > exParaPressure(new ExporterParaView<SC,LO,GO,NO>());
 
@@ -544,7 +544,7 @@ int main(int argc, char *argv[]) {
 
                     exParaVelocity->save(0.0);
                     exParaPressure->save(0.0);
-
+		*/
                 }
             }
         }
