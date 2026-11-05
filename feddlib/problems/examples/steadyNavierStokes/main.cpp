@@ -346,6 +346,16 @@ int main(int argc, char *argv[]) {
                     parameter_vec.push_back(.4);
                 else if(!bcType.compare("LDC")) // Lid Driven Cavity Test
                     parameter_vec.push_back(0.);//Dummy
+                else if(!bcType.compare("para_benchmark") || !bcType.compare("dfg_fsi_fluid"))
+                    parameter_vec.push_back(.41);//height of inflow region
+            	else if(!bcType.compare("channel") || !bcType.compare("vessel"))
+            	    parameter_vec.push_back(.3);//height of the inflow region
+    		else if(!bcType.compare("bfs"))
+    	  	    parameter_vec.push_back(1.);//height of the inflow region
+    	  	else if(!bcType.compare("square"))
+    	  	    parameter_vec.push_back(1.);//height of the inflow region    
+    	  	else if(!bcType.compare("tube"))
+    	  	    parameter_vec.push_back(1.);//height of the inflow region
                 else
                     TEUCHOS_TEST_FOR_EXCEPTION(true, std::logic_error, "Select a valid boundary condition.");
 
@@ -397,6 +407,37 @@ int main(int argc, char *argv[]) {
                             std::cout << " WARNING: 'Use Pressure Projection' is set to true. This does not work for the LDC test with NOX. Somehow the Dirichlet fixed pressure point at (0,0,0) is an issue. Remove the RB to make it work or choose Newton!" << std::endl;
                     }
                        
+                }
+                else if (!bcType.compare("para_benchmark")) {
+                    bcFactory->addBC(zeroDirichlet2D, 1, 0, domainVelocity, "Dirichlet", dim); // wall and obstacle
+               	    bcFactory->addBC(inflowParabolic2D, 2, 0, domainVelocity, "Dirichlet", dim, parameter_vec); // inflow
+//                    bcFactory->addBC(dummyFunc, 3, 0, domainVelocity, "Neumann", dim);
+                }
+                else if (!bcType.compare("dfg_fsi_fluid")) {
+                    bcFactory->addBC(zeroDirichlet2D, 1, 0, domainVelocity, "Dirichlet", dim); // wall
+                    bcFactory->addBC(inflowParabolic2D, 2, 0, domainVelocity, "Dirichlet", dim, parameter_vec); // inflow
+                    bcFactory->addBC(zeroDirichlet2D, 4, 0, domainVelocity, "Dirichlet", dim); // circle part of obstacle 
+                    bcFactory->addBC(zeroDirichlet2D, 5, 0, domainVelocity, "Dirichlet", dim); // bar part of obstacle
+                }
+                else if (!bcType.compare("channel") || !bcType.compare("vessel") ) {
+                  bcFactory->addBC(zeroDirichlet2D, 1, 0, domainVelocity, "Dirichlet", dim); // wall
+                  bcFactory->addBC(inflowParabolic2D, 2, 0, domainVelocity, "Dirichlet", dim, parameter_vec); // inflow
+//                    bcFactory->addBC(dummyFunc, 3, 0, domainVelocity, "Neumann", dim);
+                }
+                else if (!bcType.compare("bfs")) {
+                  bcFactory->addBC(zeroDirichlet2D, 1, 0, domainVelocity, "Dirichlet", dim); // wall
+                  bcFactory->addBC(inflowParabolic2D, 2, 0, domainVelocity, "Dirichlet", dim, parameter_vec); // inflow
+//                    bcFactory->addBC(dummyFunc, 3, 0, domainVelocity, "Neumann", dim);
+                }
+                else if (!bcType.compare("square")) {
+                  bcFactory->addBC(zeroDirichlet2D, 1, 0, domainVelocity, "Dirichlet", dim); // wall
+                  bcFactory->addBC(inflowParabolic2D, 2, 0, domainVelocity, "Dirichlet", dim, parameter_vec); // inflow
+//                    bcFactory->addBC(dummyFunc, 3, 0, domainVelocity, "Neumann", dim);
+                }
+                else if (!bcType.compare("tube")) {
+                  bcFactory->addBC(zeroDirichlet2D, 1, 0, domainVelocity, "Dirichlet", dim); // wall
+                  bcFactory->addBC(inflowParabolic2D, 2, 0, domainVelocity, "Dirichlet", dim, parameter_vec); // inflow
+                  bcFactory->addBC(zeroDirichlet2D, 4, 0, domainVelocity, "Dirichlet", dim); // wall(obstacle)
                 }
                 
                 NavierStokes<SC,LO,GO,NO> navierStokes( domainVelocity, discVelocity, domainPressure, discPressure, parameterListAll );
