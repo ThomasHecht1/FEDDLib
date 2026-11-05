@@ -482,11 +482,11 @@ int main(int argc, char *argv[]) {
         
 		HDF5Import<SC, LO, GO, NO> importerV(navierStokes.getSolution()->getBlock(0)->getMap(),
 		    "ReferenceSolutions/velocity");
-		Teuchos::RCP<const MultiVector<SC, LO, GO, NO>> solutionImportedVeloctiy = importerV.readVariablesHDF5("u.00000/Values");
+		Teuchos::RCP<const MultiVector<SC, LO, GO, NO>> solutionImportedVeloctiy = importerV.readVariablesHDF5("velocity");
 
 		HDF5Import<SC, LO, GO, NO> importerP(navierStokes.getSolution()->getBlock(1)->getMap(),
 		    "ReferenceSolutions/pressure");
-		Teuchos::RCP<const MultiVector<SC, LO, GO, NO>> solutionImportedPressure = importerP.readVariablesHDF5("p.00000/Values");
+		Teuchos::RCP<const MultiVector<SC, LO, GO, NO>> solutionImportedPressure = importerP.readVariablesHDF5("pressure");
 
 		// We compare the imported solution to the current one
 		Teuchos::RCP<const MultiVector<SC, LO, GO, NO>> solutionVelocity = navierStokes.getSolution()->getBlock(0);
